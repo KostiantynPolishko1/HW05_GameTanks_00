@@ -29,73 +29,30 @@
         private void InitializeComponent()
         {
             pcBxPlayer = new PictureBox();
-            btnMoveUp = new Button();
-            btnMoveDown = new Button();
-            btnRotateCW = new Button();
-            btnRotateCCW = new Button();
             ((System.ComponentModel.ISupportInitialize)pcBxPlayer).BeginInit();
             SuspendLayout();
             // 
             // pcBxPlayer
             // 
+            pcBxPlayer.BackColor = Color.Green;
             pcBxPlayer.Location = new Point(200, 200);
             pcBxPlayer.Name = "pcBxPlayer";
             pcBxPlayer.Size = new Size(100, 100);
             pcBxPlayer.SizeMode = PictureBoxSizeMode.Zoom;
             pcBxPlayer.TabIndex = 0;
             pcBxPlayer.TabStop = false;
-            // 
-            // btnMoveUp
-            // 
-            btnMoveUp.Location = new Point(12, 12);
-            btnMoveUp.Name = "btnMoveUp";
-            btnMoveUp.Size = new Size(100, 30);
-            btnMoveUp.TabIndex = 1;
-            btnMoveUp.Text = "MoveUp";
-            btnMoveUp.UseVisualStyleBackColor = true;
-            btnMoveUp.Click += btnMoveUp_Click;
-            // 
-            // btnMoveDown
-            // 
-            btnMoveDown.Location = new Point(12, 54);
-            btnMoveDown.Name = "btnMoveDown";
-            btnMoveDown.Size = new Size(100, 30);
-            btnMoveDown.TabIndex = 2;
-            btnMoveDown.Text = "MoveDown";
-            btnMoveDown.UseVisualStyleBackColor = true;
-            // 
-            // btnRotateCW
-            // 
-            btnRotateCW.Location = new Point(12, 96);
-            btnRotateCW.Name = "btnRotateCW";
-            btnRotateCW.Size = new Size(100, 30);
-            btnRotateCW.TabIndex = 3;
-            btnRotateCW.Text = "Rotate(+)";
-            btnRotateCW.UseVisualStyleBackColor = true;
-            btnRotateCW.Click += btnRotateCW_Click;
-            // 
-            // btnRotateCCW
-            // 
-            btnRotateCCW.Location = new Point(12, 132);
-            btnRotateCCW.Name = "btnRotateCCW";
-            btnRotateCCW.Size = new Size(100, 30);
-            btnRotateCCW.TabIndex = 4;
-            btnRotateCCW.Text = "Rotate(-)";
-            btnRotateCCW.UseVisualStyleBackColor = true;
-            btnRotateCCW.Click += btnRotateCCW_Click;
+            pcBxPlayer.BackColor = Color.Transparent;
             // 
             // ClientForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(500, 500);
-            Controls.Add(btnRotateCCW);
-            Controls.Add(btnRotateCW);
-            Controls.Add(btnMoveDown);
-            Controls.Add(btnMoveUp);
             Controls.Add(pcBxPlayer);
+            KeyPreview = true;
             Name = "ClientForm";
             Text = "Client";
+            KeyDown += ClientForm_KeyDown;
             ((System.ComponentModel.ISupportInitialize)pcBxPlayer).EndInit();
             ResumeLayout(false);
         }
@@ -103,9 +60,5 @@
         #endregion
 
         private PictureBox pcBxPlayer;
-        private Button btnMoveUp;
-        private Button btnMoveDown;
-        private Button btnRotateCW;
-        private Button btnRotateCCW;
     }
 }
