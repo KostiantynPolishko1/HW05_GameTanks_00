@@ -28,12 +28,64 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Client";
+            pcBxAuto = new PictureBox();
+            pcBxPlayer = new PictureBox();
+            lbInfo = new Label();
+            ((System.ComponentModel.ISupportInitialize)pcBxAuto).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pcBxPlayer).BeginInit();
+            SuspendLayout();
+            // 
+            // pcBxAuto
+            // 
+            pcBxAuto.BackColor = Color.Blue;
+            pcBxAuto.Location = new Point(0, 50);
+            pcBxAuto.Name = "pcBxAuto";
+            pcBxAuto.Size = new Size(50, 50);
+            pcBxAuto.TabIndex = 0;
+            pcBxAuto.TabStop = false;
+            // 
+            // pcBxPlayer
+            // 
+            pcBxPlayer.BackColor = Color.Green;
+            pcBxPlayer.Location = new Point(50, 400);
+            pcBxPlayer.Name = "pcBxPlayer";
+            pcBxPlayer.Size = new Size(50, 50);
+            pcBxPlayer.TabIndex = 1;
+            pcBxPlayer.TabStop = false;
+            // 
+            // lbInfo
+            // 
+            lbInfo.BackColor = Color.Yellow;
+            lbInfo.Location = new Point(10, 10);
+            lbInfo.Margin = new Padding(0);
+            lbInfo.Name = "lbInfo";
+            lbInfo.Size = new Size(150, 20);
+            lbInfo.TabIndex = 2;
+            lbInfo.Text = "Info";
+            // 
+            // ClientForm
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(500, 500);
+            Controls.Add(lbInfo);
+            Controls.Add(pcBxPlayer);
+            Controls.Add(pcBxAuto);
+            KeyPreview = true;
+            Name = "ClientForm";
+            Text = "Client";
+            Load += ClientForm_Load;
+            KeyDown += ClientForm_KeyDown;
+            KeyPress += ClientForm_KeyPress;
+            ((System.ComponentModel.ISupportInitialize)pcBxAuto).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pcBxPlayer).EndInit();
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private PictureBox pcBxAuto;
+        private PictureBox pcBxPlayer;
+        private Label lbInfo;
     }
 }
