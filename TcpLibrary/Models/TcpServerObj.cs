@@ -31,7 +31,7 @@ namespace TcpLibrary.Models
                     TcpClientObj tcpClientObj = new TcpClientObj(tcpClient, this);
                     tcpClients.Add(tcpClientObj);
 
-                    await Task.Run(tcpClientObj.processAsync);
+                    Task.Run(tcpClientObj.processAsync);
                 }
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }
