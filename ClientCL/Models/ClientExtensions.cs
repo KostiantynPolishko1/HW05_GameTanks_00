@@ -9,11 +9,10 @@ namespace ClientCL.Models
     public static class ClientExtensions
     {
         public static async Task SendMessageAsync(StreamWriter writer)
-        {
-            Console.WriteLine("To send msg, push Enter");
-
+        {          
             while (true)
             {
+                Console.Write("write msg: ");
                 string? message = Console.ReadLine();
                 await writer.WriteLineAsync(message);
                 await writer.FlushAsync();

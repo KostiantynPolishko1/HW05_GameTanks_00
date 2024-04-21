@@ -48,7 +48,7 @@ namespace TcpLibrary.Models
             {
                 if (client.id != id)
                 {
-                    await client.writer.WriteAsync(msg);
+                    await client.writer.WriteLineAsync(msg);
                     await client.writer.FlushAsync();
                 }
             }
