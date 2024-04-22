@@ -28,10 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Client";
+            pcBxUser = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pcBxUser).BeginInit();
+            SuspendLayout();
+            // 
+            // pcBxUser
+            // 
+            pcBxUser.BackColor = Color.FromArgb(128, 255, 255);
+            pcBxUser.Location = new Point(0, 0);
+            pcBxUser.Name = "pcBxUser";
+            pcBxUser.Size = new Size(55, 52);
+            pcBxUser.TabIndex = 0;
+            pcBxUser.TabStop = false;
+            // 
+            // ClientForm
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(400, 400);
+            Controls.Add(pcBxUser);
+            Name = "ClientForm";
+            Text = "Client";
+            ((System.ComponentModel.ISupportInitialize)pcBxUser).EndInit();
+            ResumeLayout(false);
         }
 
         #endregion
@@ -41,5 +60,6 @@
         private Button btnMoveDown;
         private Button btnRotateCW;
         private Button btnRotateCCW;
+        private PictureBox pcBxUser;
     }
 }
