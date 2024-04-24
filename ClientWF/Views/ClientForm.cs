@@ -7,25 +7,42 @@ namespace ClientWF
     {
         public Graphics? g;
         public BmpPlayer player;
+        public BmpPlayer bullet;
+        public int xBullet;
+        public int yBullet;
         public ClientForm()
         {
             InitializeComponent();
-            //g = this.CreateGraphics();
             player = new BmpPlayer(GameImages.tank, new Size(50, 50));
+            bullet = new BmpPlayer(GameImages.bullet, new Size(8, 10));
+
+            xBullet = player.x + 21;
+            yBullet = player.y - 10;
         }
 
         private void ClientForm_Paint(object sender, PaintEventArgs e)
         {
             g = e.Graphics;
             g.DrawImage(player.bmp, player.x, player.y);
+            g.DrawImage(bullet.bmp, xBullet, yBullet);
         }
 
         private void ClientForm_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Down) { player.y += player.offset; }
-            else if (e.KeyCode == Keys.Up) { player.y -= player.offset; }
-            else if (e.KeyCode == Keys.Right) { player.x += player.offset; }
-            else if (e.KeyCode == Keys.Left) { player.x -= player.offset; }
+            player.movePayer(e);
+            xBullet = player.x + 21;
+            yBullet = player.y - 10;
+
+            if (e.KeyCode == Keys.Enter) 
+            {
+                do
+                {
+                    yBullet -= 2;
+                    Thread.Sleep(10);
+
+                    Refresh();
+                } while (yBullet > 0);
+            }
 
             Refresh();
         }
