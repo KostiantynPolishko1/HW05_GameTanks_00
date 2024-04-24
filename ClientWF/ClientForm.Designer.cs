@@ -74,7 +74,6 @@
             KeyPreview = true;
             Name = "ClientForm";
             Text = "Client";
-            Load += ClientForm_Load;
             KeyDown += ClientForm_KeyDown;
             KeyPress += ClientForm_KeyPress;
             ((System.ComponentModel.ISupportInitialize)pcBxAuto).EndInit();
