@@ -40,7 +40,7 @@
             Text = "Client";
             Load += ClientForm_Load;
             Paint += ClientForm_Paint;
-            KeyDown += ClientForm_KeyDown;
+            //KeyDown += ClientForm_KeyDown;
             ResumeLayout(false);
         }
 

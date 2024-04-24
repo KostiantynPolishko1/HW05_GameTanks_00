@@ -7,9 +7,12 @@ namespace ClientWF
     public partial class ClientForm : Form
     {
         public Graphics? g;
-        public BmpPlayer player;
-        public BmpPlayer bullet;
-        public BmpPlayer target;
+        //public BmpPlayer player;
+        //public BmpPlayer bullet;
+        //public BmpPlayer target;
+
+        public RectPlayer rectTarget;
+
         public int xBullet;
         public int yBullet;
         public bool isBullet { get; set; } = false;
@@ -18,32 +21,35 @@ namespace ClientWF
         public ClientForm()
         {
             InitializeComponent();
-            player = new BmpPlayer(GameImages.tank, new Size(50, 50));
-            bullet = new BmpPlayer(GameImages.bullet, new Size(8, 10));
-            target = new BmpPlayer(GameImages.target, new Size(40, 40));
+            //player = new BmpPlayer(GameImages.tank, new Size(50, 50));
+            //bullet = new BmpPlayer(GameImages.bullet, new Size(8, 10));
+            //target = new BmpPlayer(GameImages.target, new Size(40, 40));
 
+            rectTarget = new RectPlayer(GameImages.target, new Size(40, 40));
             taskScheduler = TaskScheduler.FromCurrentSynchronizationContext();
 
-            xBullet = player.x + 21;
-            yBullet = player.y - 10;
+            //xBullet = player.x + 21;
+            //yBullet = player.y - 10;
         }
 
         private void ClientForm_Paint(object sender, PaintEventArgs e)
         {
             g = e.Graphics;
-            g.DrawImage(player.bmp, player.x, player.y);
-            g.DrawImage(target.bmp, target.x, target.y);
+            //g.DrawImage(player.bmp, player.x, player.y);
+            //g.DrawImage(target.bmp, target.x, target.y);
 
-            if (isBullet)
-            {
-                g.DrawImage(bullet.bmp, xBullet, yBullet);
-            }
+            g.DrawImage(rectTarget.bmp, rectTarget.rect);
+
+            //if (isBullet)
+            //{
+            //    g.DrawImage(bullet.bmp, xBullet, yBullet);
+            //}
         }
 
         private async void ClientForm_Load(object sender, EventArgs e)
         {
-            target.x = 0;
-            target.y = 0;
+            rectTarget.x = rectTarget.y = 0;
+            rectTarget.setRectPoint(rectTarget.x, rectTarget.y);
             await Task.Run(() => moveTarget());
         }
 
@@ -53,7 +59,7 @@ namespace ClientWF
             {
                 Task.Factory.StartNew(() =>
                 {
-                    player.movePayer(e);
+                    //player.movePayer(e);
                     Refresh();
 
                 }, CancellationToken.None, TaskCreationOptions.None, taskScheduler);
@@ -63,8 +69,8 @@ namespace ClientWF
             {
                 await Task.Run(() =>
                 {
-                    xBullet = player.x + 21;
-                    yBullet = player.y - 10;
+                    //xBullet = player.x + 21;
+                    //yBullet = player.y - 10;
 
                     isBullet = true;
 
@@ -85,7 +91,7 @@ namespace ClientWF
 
         public void moveTarget()
         {
-            int count = (int)(this.Width - target.bmp.Width) / target.offset;
+            int count = (int)(this.Width - rectTarget.bmp.Width) / rectTarget.offset;
 
             while (true)
             {
@@ -94,7 +100,8 @@ namespace ClientWF
                     Thread.Sleep(20);
                     Task.Factory.StartNew(() =>
                     {
-                        target.x += target.offset;
+                        rectTarget.x += rectTarget.offset;
+                        rectTarget.setRectPoint(rectTarget.x, rectTarget.y);
                         Refresh();
                     }, CancellationToken.None, TaskCreationOptions.None, taskScheduler);
                 }
@@ -103,7 +110,8 @@ namespace ClientWF
                     Thread.Sleep(20);
                     Task.Factory.StartNew(() =>
                     {
-                        target.x -= target.offset;
+                        rectTarget.x -= rectTarget.offset;
+                        rectTarget.setRectPoint(rectTarget.x, rectTarget.y);
                         Refresh();
                     }, CancellationToken.None, TaskCreationOptions.None, taskScheduler);
                 }

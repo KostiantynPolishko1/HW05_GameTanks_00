@@ -10,8 +10,8 @@ namespace ClientWF.Models
     public class BmpPlayer
     {
         public Bitmap bmp { get; set; }
-        public int x { get; set; } = 50;
-        public int y { get; set; } = 50;
+        public int x { get; set; } = 175;
+        public int y { get; set; } = 175;
         public int offset { get; private set; } = 5;
 
         public BmpPlayer(Image img, Size size)
