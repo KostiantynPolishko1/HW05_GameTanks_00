@@ -1,5 +1,6 @@
 using ClientWF.Models;
 using ClientWF.Resources;
+using System.Threading.Tasks;
 
 namespace ClientWF
 {
@@ -10,11 +11,15 @@ namespace ClientWF
         public BmpPlayer bullet;
         public int xBullet;
         public int yBullet;
+        public bool isBullet { get; set; } = false;
+        TaskScheduler taskScheduler;
+
         public ClientForm()
         {
             InitializeComponent();
             player = new BmpPlayer(GameImages.tank, new Size(50, 50));
             bullet = new BmpPlayer(GameImages.bullet, new Size(8, 10));
+            taskScheduler = TaskScheduler.FromCurrentSynchronizationContext();
 
             xBullet = player.x + 21;
             yBullet = player.y - 10;
@@ -24,27 +29,47 @@ namespace ClientWF
         {
             g = e.Graphics;
             g.DrawImage(player.bmp, player.x, player.y);
-            g.DrawImage(bullet.bmp, xBullet, yBullet);
+
+            if(isBullet)
+            {
+                g.DrawImage(bullet.bmp, xBullet, yBullet);
+            }           
         }
 
-        private void ClientForm_KeyDown(object sender, KeyEventArgs e)
+        private async void ClientForm_KeyDown(object sender, KeyEventArgs e)
         {
-            player.movePayer(e);
-            xBullet = player.x + 21;
-            yBullet = player.y - 10;
-
-            if (e.KeyCode == Keys.Enter) 
+            await Task.Run(() =>
             {
-                do
+                Task.Factory.StartNew(() =>
                 {
-                    yBullet -= 2;
-                    Thread.Sleep(10);
-
+                    player.movePayer(e);
                     Refresh();
-                } while (yBullet > 0);
-            }
 
-            Refresh();
+                }, CancellationToken.None, TaskCreationOptions.None, taskScheduler);
+            });
+
+            await Task.Run(() =>
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    xBullet = player.x + 21;
+                    yBullet = player.y - 10;
+
+                    isBullet = true;
+                    do
+                    {
+                        Thread.Sleep(15);
+                        Task.Factory.StartNew(() =>
+                        {
+                            yBullet -= 2;
+                            Refresh();
+                        }, CancellationToken.None, TaskCreationOptions.None, taskScheduler);
+                    } while (yBullet > 0);
+
+                    isBullet = false;
+                }
+            });
+           
         }
     }
 }
