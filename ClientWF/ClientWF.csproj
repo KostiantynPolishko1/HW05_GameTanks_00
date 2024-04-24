@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Update="GameImages.Designer.cs">
+    <Compile Update="Resources\GameImages.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>GameImages.resx</DependentUpon>
@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="GameImages.resx">
+    <EmbeddedResource Update="Resources\GameImages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>GameImages.Designer.cs</LastGenOutput>
     </EmbeddedResource>

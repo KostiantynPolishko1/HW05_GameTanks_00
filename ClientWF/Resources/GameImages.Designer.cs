@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ClientWF {
+namespace ClientWF.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace ClientWF {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ClientWF.GameImages", typeof(GameImages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ClientWF.Resources.GameImages", typeof(GameImages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
