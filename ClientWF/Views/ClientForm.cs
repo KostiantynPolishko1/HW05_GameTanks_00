@@ -9,6 +9,7 @@ namespace ClientWF
         public Graphics? g;
         public BmpPlayer player;
         public BmpPlayer bullet;
+        public BmpPlayer target;
         public int xBullet;
         public int yBullet;
         public bool isBullet { get; set; } = false;
@@ -19,6 +20,8 @@ namespace ClientWF
             InitializeComponent();
             player = new BmpPlayer(GameImages.tank, new Size(50, 50));
             bullet = new BmpPlayer(GameImages.bullet, new Size(8, 10));
+            target = new BmpPlayer(GameImages.target, new Size(40, 40));
+
             taskScheduler = TaskScheduler.FromCurrentSynchronizationContext();
 
             xBullet = player.x + 21;
@@ -29,11 +32,19 @@ namespace ClientWF
         {
             g = e.Graphics;
             g.DrawImage(player.bmp, player.x, player.y);
+            g.DrawImage(target.bmp, target.x, target.y);
 
-            if(isBullet)
+            if (isBullet)
             {
                 g.DrawImage(bullet.bmp, xBullet, yBullet);
-            }           
+            }
+        }
+
+        private async void ClientForm_Load(object sender, EventArgs e)
+        {
+            target.x = 0;
+            target.y = 0;
+            await Task.Run(() => moveTarget());
         }
 
         private async void ClientForm_KeyDown(object sender, KeyEventArgs e)
@@ -48,14 +59,15 @@ namespace ClientWF
                 }, CancellationToken.None, TaskCreationOptions.None, taskScheduler);
             });
 
-            await Task.Run(() =>
+            if (e.KeyCode == Keys.Enter)
             {
-                if (e.KeyCode == Keys.Enter)
+                await Task.Run(() =>
                 {
                     xBullet = player.x + 21;
                     yBullet = player.y - 10;
 
                     isBullet = true;
+
                     do
                     {
                         Thread.Sleep(15);
@@ -67,9 +79,36 @@ namespace ClientWF
                     } while (yBullet > 0);
 
                     isBullet = false;
-                }
-            });
-           
+                });
+            }
         }
+
+        public void moveTarget()
+        {
+            int count = (int)(this.Width - target.bmp.Width) / target.offset;
+
+            while (true)
+            {
+                for (int i = 0; i != count; i++)
+                {
+                    Thread.Sleep(20);
+                    Task.Factory.StartNew(() =>
+                    {
+                        target.x += target.offset;
+                        Refresh();
+                    }, CancellationToken.None, TaskCreationOptions.None, taskScheduler);
+                }
+                for (int i = 0; i != count; i++)
+                {
+                    Thread.Sleep(20);
+                    Task.Factory.StartNew(() =>
+                    {
+                        target.x -= target.offset;
+                        Refresh();
+                    }, CancellationToken.None, TaskCreationOptions.None, taskScheduler);
+                }
+            }
+        }
+
     }
 }

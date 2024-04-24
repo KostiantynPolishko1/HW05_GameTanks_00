@@ -38,6 +38,7 @@
             KeyPreview = true;
             Name = "ClientForm";
             Text = "Client";
+            Load += ClientForm_Load;
             Paint += ClientForm_Paint;
             KeyDown += ClientForm_KeyDown;
             ResumeLayout(false);
