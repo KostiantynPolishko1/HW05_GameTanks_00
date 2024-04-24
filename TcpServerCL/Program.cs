@@ -2,6 +2,8 @@
 using System.Net.Sockets;
 using System.Text.Json;
 using Newtonsoft.Json;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace TcpServerCL
 {
@@ -11,11 +13,13 @@ namespace TcpServerCL
         {
             TcpListener server = new TcpListener(new ConnectIPEndP().getIpeP());
             try
-            {
+            {               
                 server.Start();
                 Console.WriteLine("Server Start!");
 
-                using(TcpClient client = server.AcceptTcpClient())
+                Image img = null;
+
+                using (TcpClient client = server.AcceptTcpClient())
                 {
                     StreamReader reader = new StreamReader(client.GetStream());
                     StreamWriter writer = new StreamWriter(client.GetStream());
@@ -25,18 +29,14 @@ namespace TcpServerCL
                     while (true)
                     {
                         Console.Write("received obj:\t");
-                        json = reader.ReadLine();
-                        //player = JsonSerializer.Deserialize<Player>(json);
-                        player = JsonConvert.DeserializeObject<Player>(json);
+                        player = JsonConvert.DeserializeObject<Player>(reader.ReadLine());
                         Console.WriteLine(player);
 
                         player.x += 10;
                         player.y += 10;
 
                         Console.WriteLine($"sent obj:\t{player}");
-                        //json = JsonSerializer.Serialize(player);
-                        json = JsonConvert.SerializeObject(player);
-                        writer.WriteLine(json);
+                        writer.WriteLine(JsonConvert.SerializeObject(player));
                         writer.Flush();
                     }
                 }

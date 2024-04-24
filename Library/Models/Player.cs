@@ -12,14 +12,14 @@ namespace Library.Models
         public int y;
         public string? color;
 
-        //public Player() { }
+        public Player() { }
 
-        //public Player(int x, int y, string? color) 
-        //{
-        //    this.x = x;
-        //    this.y = y;
-        //    this.color = color;
-        //}
+        public Player(int x, int y, string? color)
+        {
+            this.x = x;
+            this.y = y;
+            this.color = color;
+        }
 
         public override string ToString() => $"{x} : {y} | {color}";
     }

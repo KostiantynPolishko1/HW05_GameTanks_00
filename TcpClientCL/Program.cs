@@ -2,6 +2,7 @@
 using System.Net.Sockets;
 using System.Text.Json;
 using Newtonsoft.Json;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace TcpClientCL
 {
@@ -10,7 +11,7 @@ namespace TcpClientCL
         static void Main(string[] args)
         {          
             using (TcpClient client = new TcpClient())
-            {
+            {               
                 try
                 {
                     client.Connect(new ConnectIPEndP().getIpeP());
@@ -25,17 +26,13 @@ namespace TcpClientCL
                     while (true)
                     {
                         Console.WriteLine($"sent obj:\t{player}");
-                        //json = JsonSerializer.Serialize(player);
-                        json = JsonConvert.SerializeObject(player);
-                        writer.WriteLine(json);
+                        writer.WriteLine(JsonConvert.SerializeObject(player));
                         writer.Flush();
 
                         Console.ReadLine();
 
                         Console.Write("received obj:\t");
-                        json = reader.ReadLine();
-                        //player = JsonSerializer.Deserialize<Player>(json);
-                        player = JsonConvert.DeserializeObject<Player>(json);
+                        player = JsonConvert.DeserializeObject<Player>(reader.ReadLine());
                         Console.WriteLine(player);
                     }
                 }
